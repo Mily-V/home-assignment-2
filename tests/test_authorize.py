@@ -8,7 +8,7 @@ from pages.pages import PageObject, AuthorizePage
 __author__ = 'Mily-V'
 
 
-class Test(unittest.TestCase):
+class TestAuth(unittest.TestCase):
 
     NAME_USER = u'Господин Манилов'
 

@@ -3,7 +3,7 @@ import os
 import unittest
 from selenium.webdriver import DesiredCapabilities, Remote
 from pages.components import AuthForm, TopMenu
-from pages.pages import PageObject, AuthorizePage, CreateTopicPage, TopicPage, BlogPage
+from pages.pages import PageObject, TopicPage
 
 __author__ = 'Mily-V'
 
