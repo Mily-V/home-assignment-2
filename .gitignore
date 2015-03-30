@@ -52,5 +52,5 @@ docs/_build/
 
 # PyBuilder
 target/
-selenium-server.jar
+selenium-server-standalone-2.45.0.jar
 .idea/
