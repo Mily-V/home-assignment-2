@@ -28,6 +28,10 @@ class TestCreateTopic(unittest.TestCase):
 
 
     def tearDown(self):
+        try:
+            TopicPage(self.driver).topic.delete_topic()
+        except NoSuchElementException:
+            pass
         self.page.close()
 
     def test_bad_topic_without_blog(self):
@@ -56,7 +60,7 @@ class TestCreateTopic(unittest.TestCase):
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
         self.assertEqual(pages.constants.TITLE, result_title)
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_good_simple_topic_check_short_text(self):
         self.create_topic_page.create_topic(self.create_topic_page)
@@ -65,7 +69,7 @@ class TestCreateTopic(unittest.TestCase):
         result_text = BlogPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
         self.assertEqual(pages.constants.TITLE, result_title)
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_bold_text(self):
         self.create_topic_page.create_topic_with_bold_text(self.create_topic_page)
@@ -77,7 +81,7 @@ class TestCreateTopic(unittest.TestCase):
             is_bold = False
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
         self.assertTrue(is_bold)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_bold_short_text(self):
         self.create_topic_page.create_topic_with_bold_short_text(self.create_topic_page)
@@ -90,7 +94,7 @@ class TestCreateTopic(unittest.TestCase):
             is_bold = False
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
         self.assertTrue(is_bold)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_italic_text(self):
         self.create_topic_page.create_topic_with_italic_text(self.create_topic_page)
@@ -102,7 +106,7 @@ class TestCreateTopic(unittest.TestCase):
             is_italic = False
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
         self.assertTrue(is_italic)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_italic_short_text(self):
         self.create_topic_page.create_topic_with_italic_short_text(self.create_topic_page)
@@ -115,7 +119,7 @@ class TestCreateTopic(unittest.TestCase):
             is_italic = False
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
         self.assertTrue(is_italic)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_quote_text(self):
         CreateTopicForm(self.driver).set_quote_text(pages.locator.QUOTE_MAIN_TEXT)
@@ -123,7 +127,7 @@ class TestCreateTopic(unittest.TestCase):
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
         waiting_result = '> ' + pages.constants.MAIN_TEXT
         self.assertEqual(waiting_result, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_quote_short_text(self):
         CreateTopicForm(self.driver).set_quote_text(pages.locator.QUOTE_SHORT_TEXT)
@@ -132,14 +136,14 @@ class TestCreateTopic(unittest.TestCase):
         result_text = BlogPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
         waiting_result = '> ' + pages.constants.SHORT_TEXT
         self.assertEqual(waiting_result, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_unordered_text(self):
         CreateTopicForm(self.driver).set_unordered_list_text(pages.locator.UNORDERED_LIST_MAIN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.UNORDERED_LIST_TAG)
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
 
     def test_unordered_short_text(self):
@@ -148,14 +152,14 @@ class TestCreateTopic(unittest.TestCase):
         BlogPage(self.driver).topic.open_blog()
         result_text = BlogPage(self.driver).topic.get_text(pages.locator.UNORDERED_LIST_TAG)
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_ordered_list_text(self):
         CreateTopicForm(self.driver).set_ordered_list_text(pages.locator.ORDERED_LIST_MAIN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.ORDERED_LIST_TAG)
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_ordered_short_text(self):
         CreateTopicForm(self.driver).set_ordered_list_text(pages.locator.ORDERED_LIST_SHORT_TEXT)
@@ -163,7 +167,7 @@ class TestCreateTopic(unittest.TestCase):
         BlogPage(self.driver).topic.open_blog()
         result_text = BlogPage(self.driver).topic.get_text(pages.locator.ORDERED_LIST_TAG)
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
 
     def test_link_text(self):
@@ -176,7 +180,7 @@ class TestCreateTopic(unittest.TestCase):
             result_text = False
         self.assertIsNot(result_text, False)
         self.assertEqual(result_text, pages.constants.REFERENCE)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_link_short_text(self):
         CreateTopicForm(self.driver).set_link_in_text(pages.locator.LINK_SHORT_TEXT)
@@ -189,7 +193,7 @@ class TestCreateTopic(unittest.TestCase):
             result_text = False
         self.assertIsNot(result_text, False)
         self.assertEqual(result_text, pages.constants.REFERENCE)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_fix_image_text(self):
         CreateTopicForm(self.driver).set_fix_image_in_text(pages.locator.FIX_IMAGE_MAIN_TEXT)
@@ -200,7 +204,7 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result_text = False
         self.assertTrue(result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_fix_image_short_text(self):
         CreateTopicForm(self.driver).set_fix_image_in_text(pages.locator.FIX_IMAGE_SHORT_TEXT)
@@ -212,7 +216,7 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result_text = False
         self.assertTrue(result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_upload_image_in_text(self):
         CreateTopicForm(self.driver).set_upload_image_in_text(pages.locator.UPLOAD_IMAGE_MAIN_TEXT,
@@ -224,7 +228,7 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result_text = False
         self.assertTrue(result_text)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_upload_image_in_short_text(self):
         CreateTopicForm(self.driver).set_upload_image_in_text(pages.locator.UPLOAD_IMAGE_SHORT_TEXT,
@@ -237,7 +241,6 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result_text = False
         self.assertTrue(result_text)
-        TopicPage(self.driver).topic.delete_topic()
 
 
     def test_add_user_in_text(self):
@@ -249,7 +252,7 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result_text = False
         self.assertEqual(result_text, pages.constants.USER)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_add_user_in_short_text(self):
         CreateTopicForm(self.driver).set_add_user_in_text(pages.locator.ADD_USER_IN_SHORT_TEXT)
@@ -261,7 +264,7 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result_text = False
         self.assertEqual(result_text, pages.constants.USER)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_add_poll(self):
         CreateTopicForm(self.driver).set_add_poll()
@@ -270,7 +273,7 @@ class TestCreateTopic(unittest.TestCase):
         res_answ2 = self.driver.find_element_by_xpath(pages.locator.GET_ANSWER2).text
         self.assertEqual(res_answ1, pages.constants.ANSWER1)
         self.assertEqual(res_answ2, pages.constants.ANSWER2)
-        TopicPage(self.driver).topic.delete_topic()
+
 
     def test_forbid_comment(self):
         CreateTopicForm(self.driver).set_forbid_comment()
@@ -280,4 +283,3 @@ class TestCreateTopic(unittest.TestCase):
         except NoSuchElementException:
             result = False
         self.assertFalse(result)
-        TopicPage(self.driver).topic.delete_topic()
