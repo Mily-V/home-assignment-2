@@ -20,7 +20,6 @@ QUESTION    = u'Вопрос'
 ANSWER1     = u'Ответ1'
 ANSWER2     = u'Ответ2'
 LOGIN       = 'ftest15@tech-mail.ru'
-PASSWORD    = os.environ.get('TTHA2PASSWORD')
-#'Pa$$w0rD-15'
+PASSWORD    = os.environ['TTHA2PASSWORD']
 LIMIT_TITLE = 251
 LONG_TITLE  = '*'*LIMIT_TITLE

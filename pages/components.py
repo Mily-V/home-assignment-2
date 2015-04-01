@@ -61,6 +61,7 @@ class TopicRead(Component):
 
     def delete_topic(self):
         self.driver.find_element_by_xpath(locator.DELETE_BUTTON).click()
+        time.sleep(1)
         self.driver.find_element_by_xpath(locator.DELETE_BUTTON_CONFIRM).click()
 
 class CreateTopicForm(Component):

@@ -113,8 +113,6 @@ class TestCreateTopic(unittest.TestCase):
                 is_enabled()
         except NoSuchElementException:
             is_italic = False
-        print is_italic
-        print result_text
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
         self.assertTrue(is_italic)
         TopicPage(self.driver).topic.delete_topic()
@@ -136,7 +134,12 @@ class TestCreateTopic(unittest.TestCase):
         self.assertEqual(waiting_result, result_text)
         TopicPage(self.driver).topic.delete_topic()
 
-    # добавить неупорядоченный список в майн текст
+    def test_unordered_text(self):
+        CreateTopicForm(self.driver).set_unordered_list_text(pages.locator.UNORDERED_LIST_MAIN_TEXT)
+        self.create_topic_page.create_topic(self.create_topic_page)
+        result_text = TopicPage(self.driver).topic.get_text(pages.locator.UNORDERED_LIST_TAG)
+        self.assertEqual(pages.constants.MAIN_TEXT, result_text)
+        TopicPage(self.driver).topic.delete_topic()
 
 
     def test_unordered_short_text(self):
@@ -196,7 +199,6 @@ class TestCreateTopic(unittest.TestCase):
                 is_enabled()
         except NoSuchElementException:
             result_text = False
-        print result_text
         self.assertTrue(result_text)
         TopicPage(self.driver).topic.delete_topic()
 
@@ -209,7 +211,6 @@ class TestCreateTopic(unittest.TestCase):
                 is_enabled()
         except NoSuchElementException:
             result_text = False
-        print result_text
         self.assertTrue(result_text)
         TopicPage(self.driver).topic.delete_topic()
 
