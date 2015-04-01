@@ -7,7 +7,6 @@ from pages.components import TopMenu, CreateTopicForm
 from pages.pages import Page, TopicPage, CreateTopicPage, AuthorizePage, BlogPage
 import pages.constants
 import pages.locator
-import time
 
 __author__ = 'Mily-V'
 
@@ -214,16 +213,70 @@ class TestCreateTopic(unittest.TestCase):
         self.assertTrue(result_text)
         TopicPage(self.driver).topic.delete_topic()
 
+    def test_upload_image_in_text(self):
+        CreateTopicForm(self.driver).set_upload_image_in_text(pages.locator.UPLOAD_IMAGE_MAIN_TEXT,
+                                                              pages.locator.FORM_UPLOAD_IMAGE_IN_TEXT)
+        self.create_topic_page.create_topic(self.create_topic_page)
+        try:
+            result_text = self.driver.find_element_by_xpath(pages.locator.IMAGE_TAG).\
+                is_enabled()
+        except NoSuchElementException:
+            result_text = False
+        self.assertTrue(result_text)
+        TopicPage(self.driver).topic.delete_topic()
 
-    # не получается  :(
-    # def test_upload_image_in_text(self):
-    #     CreateTopicForm(self.driver).set_upload_image_in_text(pages.locator.UPLOAD_IMAGE_MAIN_TEXT)
-    #     self.create_topic_page.create_topic(self.create_topic_page)
-    #     try:
-    #         result_text = self.driver.find_element_by_xpath(pages.locator.IMAGE_TAG).\
-    #             is_enabled()
-    #     except NoSuchElementException:
-    #         result_text = False
-    #     print result_text
-    #     # self.assertTrue(result_text)
-    #     TopicPage(self.driver).topic.delete_topic()
+    def test_upload_image_in_short_text(self):
+        CreateTopicForm(self.driver).set_upload_image_in_text(pages.locator.UPLOAD_IMAGE_SHORT_TEXT,
+                                                              pages.locator.FORM_UPLOAD_IMAGE_IN_SHORT_TEXT)
+        self.create_topic_page.create_topic(self.create_topic_page)
+        BlogPage(self.driver).topic.open_blog()
+        try:
+            result_text = self.driver.find_element_by_xpath(pages.locator.IMAGE_TAG).\
+                is_enabled()
+        except NoSuchElementException:
+            result_text = False
+        self.assertTrue(result_text)
+        TopicPage(self.driver).topic.delete_topic()
+
+
+    def test_add_user_in_text(self):
+        CreateTopicForm(self.driver).set_add_user_in_text(pages.locator.ADD_USER_IN_TEXT)
+        self.create_topic_page.create_topic(self.create_topic_page)
+        try:
+            result_text = self.driver.find_element_by_xpath(pages.locator.LINK_TAG).\
+                get_attribute('href')
+        except NoSuchElementException:
+            result_text = False
+        self.assertEqual(result_text, pages.constants.USER)
+        TopicPage(self.driver).topic.delete_topic()
+
+    def test_add_user_in_short_text(self):
+        CreateTopicForm(self.driver).set_add_user_in_text(pages.locator.ADD_USER_IN_SHORT_TEXT)
+        self.create_topic_page.create_topic(self.create_topic_page)
+        BlogPage(self.driver).topic.open_blog()
+        try:
+            result_text = self.driver.find_element_by_xpath(pages.locator.LINK_TAG).\
+                get_attribute('href')
+        except NoSuchElementException:
+            result_text = False
+        self.assertEqual(result_text, pages.constants.USER)
+        TopicPage(self.driver).topic.delete_topic()
+
+    def test_add_poll(self):
+        CreateTopicForm(self.driver).set_add_poll()
+        self.create_topic_page.create_topic(self.create_topic_page)
+        res_answ1 = self.driver.find_element_by_xpath(pages.locator.GET_ANSWER1).text
+        res_answ2 = self.driver.find_element_by_xpath(pages.locator.GET_ANSWER2).text
+        self.assertEqual(res_answ1, pages.constants.ANSWER1)
+        self.assertEqual(res_answ2, pages.constants.ANSWER2)
+        TopicPage(self.driver).topic.delete_topic()
+
+    def test_forbid_comment(self):
+        CreateTopicForm(self.driver).set_forbid_comment()
+        self.create_topic_page.create_topic(self.create_topic_page)
+        try:
+            result = self.driver.find_element_by_xpath(pages.locator.COMMENT).is_enabled()
+        except NoSuchElementException:
+            result = False
+        self.assertFalse(result)
+        TopicPage(self.driver).topic.delete_topic()

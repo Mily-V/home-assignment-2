@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-__author__ = 'milya'
+__author__ = 'Mily-V'
 
 # форма авторизации
 LOGIN        = '//input[@name="login"]'
@@ -22,7 +22,10 @@ ITALIC_TAG              = '(//*[@class="topic-content text"])[1]/p/em'
 UNORDERED_LIST_TAG      = '(//*[@class="topic-content text"])[1]/p/ul'
 ORDERED_LIST_TAG        = '(//*[@class="topic-content text"])[1]/p/ol'
 IMAGE_TAG               = '(//*[@class="topic-content text"])[1]/p/img'
-LINK_TAG                = '/(//*[@class="topic-content text"])[1]/p/a'
+LINK_TAG                = '(//*[@class="topic-content text"])[1]/p/a'
+GET_ANSWER1             = './/ul[@class="poll-vote"]/li[1]/label'
+GET_ANSWER2             = './/ul[@class="poll-vote"]/li[2]/label'
+COMMENT                 = '//*[@id="content"]/div/div[1]/h4/a'
 
 # форма создания топика
 BLOGSELECT      = '//a[@class="chzn-single"]'
@@ -49,4 +52,15 @@ FIX_IMAGE_MAIN_TEXT     = '(//*[@class="markdown-editor-icon-image"])[3]'
 FIX_IMAGE_SHORT_TEXT    = '(//*[@class="markdown-editor-icon-image"])[1]'
 UPLOAD_IMAGE_MAIN_TEXT  = '(//*[@class="markdown-editor-icon-image"])[4]'
 UPLOAD_IMAGE_SHORT_TEXT = '(//*[@class="markdown-editor-icon-image"])[2]'
-FORM_UPLOAD_LOCAL_IMAGE = '(//*[@name="filedata"])[2]'
+FORM_UPLOAD_IMAGE_IN_TEXT      = '(//input[@name="filedata"])[2]'
+FORM_UPLOAD_IMAGE_IN_SHORT_TEXT= '(//input[@name="filedata"])[1]'
+SCRIPT_TO_SHOW_PHOTO_CONTAINER = '$(".markdown-upload-photo-container").show()'
+ADD_USER_IN_TEXT        = '(//*[@class="markdown-editor-icon-link"])[4]'
+ADD_USER_IN_SHORT_TEXT  = '(//*[@class="markdown-editor-icon-link"])[2]'
+SET_USER_NAME_HERE      = '(//input[@name="user_login"])[1]'
+CHOICE_USER             = '(//*[@class="user_profile_path"])[2]'
+ADD_POLL                = '//input[@name="add_poll"]'
+FORBID_COMMENT          = '//input[@name="forbid_comment"]'
+ID_QUESTION             = 'id_question'
+ID_ANSWER1              = 'id_form-0-answer'
+ID_ANSWER2              = 'id_form-1-answer'

@@ -8,8 +8,8 @@ from tests.test_creat_topic import TestCreateTopic
 
 if __name__ == '__main__':
     suite = unittest.TestSuite((
-       # unittest.makeSuite(TestAuth),
-        unittest.makeSuite(TestCreateTopic),
+       unittest.makeSuite(TestAuth),
+       #  unittest.makeSuite(TestCreateTopic),
     ))
     result = unittest.TextTestRunner().run(suite)
     sys.exit(not result.wasSuccessful())
