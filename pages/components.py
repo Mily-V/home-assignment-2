@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import os
+from selenium.common.exceptions import NoSuchElementException
 
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -138,8 +139,8 @@ class CreateTopicForm(Component):
         self.driver.find_element_by_xpath(location).click()
         self.driver.find_element_by_xpath(locator.SET_USER_NAME_HERE).\
             send_keys(constants.ADD_USER)
-        time.sleep(1)
-        self.driver.find_element_by_xpath(locator.CHOICE_USER).click()
+        WebDriverWait(self.driver, 30, 0.1).until(
+            lambda d: d.find_element_by_xpath(locator.CHOICE_USER)).click()
 
     def set_add_poll(self):
         self.driver.find_element_by_xpath(locator.ADD_POLL).click()
@@ -150,3 +151,41 @@ class CreateTopicForm(Component):
     def set_forbid_comment(self):
         self.driver.find_element_by_xpath(locator.FORBID_COMMENT).click()
 
+    def is_forbid_comment(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.COMMENT).is_enabled()
+        except NoSuchElementException:
+            return False
+
+    def get_poll_answers(self):
+        res_answ1 = self.driver.find_element_by_xpath(locator.GET_ANSWER1).text
+        res_answ2 = self.driver.find_element_by_xpath(locator.GET_ANSWER2).text
+        return res_answ1, res_answ2
+
+    def get_link(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.LINK_TAG).\
+                get_attribute('href')
+        except NoSuchElementException:
+            return False
+
+    def is_image_in_text(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.IMAGE_TAG).\
+                get_attribute('href')
+        except NoSuchElementException:
+            return False
+
+    def is_bold(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.BOLD_TAG).\
+                is_enabled()
+        except NoSuchElementException:
+            return False
+
+    def is_italic(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.ITALIC_TAG).\
+                is_enabled()
+        except NoSuchElementException:
+            return False
