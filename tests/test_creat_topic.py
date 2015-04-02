@@ -74,7 +74,7 @@ class TestCreateTopic(unittest.TestCase):
     def test_bold_text(self):
         self.create_topic_page.create_topic_with_bold_text(self.create_topic_page)
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
-        is_bold = CreateTopicForm(self.driver).is_bold()
+        is_bold = TopicPage(self.driver).topic.is_bold()
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
         self.assertTrue(is_bold)
 
@@ -83,7 +83,7 @@ class TestCreateTopic(unittest.TestCase):
         self.create_topic_page.create_topic_with_bold_short_text(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
         result_text = BlogPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
-        is_bold = CreateTopicForm(self.driver).is_bold()
+        is_bold = BlogPage(self.driver).topic.is_bold()
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
         self.assertTrue(is_bold)
 
@@ -91,7 +91,7 @@ class TestCreateTopic(unittest.TestCase):
     def test_italic_text(self):
         self.create_topic_page.create_topic_with_italic_text(self.create_topic_page)
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
-        is_italic= CreateTopicForm(self.driver).is_italic()
+        is_italic = TopicPage(self.driver).topic.is_italic()
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
         self.assertTrue(is_italic)
 
@@ -100,7 +100,7 @@ class TestCreateTopic(unittest.TestCase):
         self.create_topic_page.create_topic_with_italic_short_text(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
         result_text = BlogPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
-        is_italic= CreateTopicForm(self.driver).is_italic()
+        is_italic = BlogPage(self.driver).topic.is_italic()
         self.assertEqual(pages.constants.SHORT_TEXT, result_text)
         self.assertTrue(is_italic)
 
@@ -156,7 +156,7 @@ class TestCreateTopic(unittest.TestCase):
     def test_link_text(self):
         CreateTopicForm(self.driver).set_link_in_text(pages.locator.LINK_MAIN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
-        result_text = CreateTopicForm(self.driver).get_link()
+        result_text = TopicPage(self.driver).topic.get_link()
         self.assertTrue(result_text)
         self.assertEqual(result_text, pages.constants.REFERENCE)
 
@@ -165,7 +165,7 @@ class TestCreateTopic(unittest.TestCase):
         CreateTopicForm(self.driver).set_link_in_text(pages.locator.LINK_SHORT_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
-        result_text = CreateTopicForm(self.driver).get_link()
+        result_text = BlogPage(self.driver).topic.get_link()
         self.assertTrue(result_text)
         self.assertEqual(result_text, pages.constants.REFERENCE)
 
@@ -173,7 +173,7 @@ class TestCreateTopic(unittest.TestCase):
     def test_fix_image_text(self):
         CreateTopicForm(self.driver).set_fix_image_in_text(pages.locator.FIX_IMAGE_MAIN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
-        result_text =  CreateTopicForm(self.driver).is_image_in_text()
+        result_text = TopicPage(self.driver).topic.is_image_in_text()
         self.assertTrue(result_text)
 
 
@@ -181,7 +181,7 @@ class TestCreateTopic(unittest.TestCase):
         CreateTopicForm(self.driver).set_fix_image_in_text(pages.locator.FIX_IMAGE_SHORT_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
-        result_text =  CreateTopicForm(self.driver).is_image_in_text()
+        result_text = BlogPage(self.driver).topic.is_image_in_text()
         self.assertTrue(result_text)
 
 
@@ -189,7 +189,7 @@ class TestCreateTopic(unittest.TestCase):
         CreateTopicForm(self.driver).set_upload_image_in_text(pages.locator.UPLOAD_IMAGE_MAIN_TEXT,
                                                               pages.locator.FORM_UPLOAD_IMAGE_IN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
-        result_text =  CreateTopicForm(self.driver).is_image_in_text()
+        result_text = TopicPage(self.driver).topic.is_image_in_text()
         self.assertTrue(result_text)
 
 
@@ -198,14 +198,14 @@ class TestCreateTopic(unittest.TestCase):
                                                               pages.locator.FORM_UPLOAD_IMAGE_IN_SHORT_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
-        result_text =  CreateTopicForm(self.driver).is_image_in_text()
+        result_text = BlogPage(self.driver).topic.is_image_in_text()
         self.assertTrue(result_text)
 
 
     def test_add_user_in_text(self):
         CreateTopicForm(self.driver).set_add_user_in_text(pages.locator.ADD_USER_IN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
-        result_text = CreateTopicForm(self.driver).get_link()
+        result_text = TopicPage(self.driver).topic.get_link()
         self.assertEqual(result_text, pages.constants.USER)
 
 
@@ -213,14 +213,14 @@ class TestCreateTopic(unittest.TestCase):
         CreateTopicForm(self.driver).set_add_user_in_text(pages.locator.ADD_USER_IN_SHORT_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
-        result_text = CreateTopicForm(self.driver).get_link()
+        result_text = BlogPage(self.driver).topic.get_link()
         self.assertEqual(result_text, pages.constants.USER)
 
 
     def test_add_poll(self):
         CreateTopicForm(self.driver).set_add_poll()
         self.create_topic_page.create_topic(self.create_topic_page)
-        res_answ1, res_answ2 = CreateTopicForm(self.driver).get_poll_answers()
+        res_answ1, res_answ2 = TopicPage(self.driver).topic.get_poll_answers()
         self.assertEqual(res_answ1, pages.constants.ANSWER1)
         self.assertEqual(res_answ2, pages.constants.ANSWER2)
 
@@ -228,5 +228,5 @@ class TestCreateTopic(unittest.TestCase):
     def test_forbid_comment(self):
         CreateTopicForm(self.driver).set_forbid_comment()
         self.create_topic_page.create_topic(self.create_topic_page)
-        result = CreateTopicForm(self.driver).is_forbid_comment()
+        result = TopicPage(self.driver).topic.is_forbid_comment()
         self.assertFalse(result)
