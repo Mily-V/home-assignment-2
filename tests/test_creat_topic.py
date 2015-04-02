@@ -75,8 +75,6 @@ class TestCreateTopic(unittest.TestCase):
         self.create_topic_page.create_topic_with_bold_text(self.create_topic_page)
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
         is_bold = TopicPage(self.driver).topic.is_bold()
-        print result_text
-        print is_bold
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
         self.assertTrue(is_bold)
 

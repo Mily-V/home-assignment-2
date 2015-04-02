@@ -151,7 +151,7 @@ class CreateTopicForm(Component):
         ActionChains(self.driver).\
             click(self.driver.find_element_by_xpath(location)).\
             key_down(Keys.CONTROL).\
-            send_keys("a").\
+            send_keys("A").\
             key_up(Keys.CONTROL).\
             perform()
 
