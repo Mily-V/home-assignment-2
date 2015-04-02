@@ -75,6 +75,8 @@ class TestCreateTopic(unittest.TestCase):
         self.create_topic_page.create_topic_with_bold_text(self.create_topic_page)
         result_text = TopicPage(self.driver).topic.get_text(pages.locator.TEXT_TAG)
         is_bold = TopicPage(self.driver).topic.is_bold()
+        print result_text
+        print is_bold
         self.assertEqual(pages.constants.MAIN_TEXT, result_text)
         self.assertTrue(is_bold)
 
@@ -125,8 +127,8 @@ class TestCreateTopic(unittest.TestCase):
     def test_unordered_text(self):
         CreateTopicForm(self.driver).set_unordered_list_text(pages.locator.UNORDERED_LIST_MAIN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
-        result_text = TopicPage(self.driver).topic.get_text(pages.locator.UNORDERED_LIST_TAG)
-        self.assertEqual(pages.constants.MAIN_TEXT, result_text)
+        result_text = TopicPage(self.driver).topic.is_unordered_list_text()
+        self.assertTrue(result_text)
 
 
 
@@ -134,23 +136,23 @@ class TestCreateTopic(unittest.TestCase):
         CreateTopicForm(self.driver).set_unordered_list_text(pages.locator.UNORDERED_LIST_SHORT_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
-        result_text = BlogPage(self.driver).topic.get_text(pages.locator.UNORDERED_LIST_TAG)
-        self.assertEqual(pages.constants.SHORT_TEXT, result_text)
+        result_text = BlogPage(self.driver).topic.is_unordered_list_text()
+        self.assertTrue(result_text)
 
 
     def test_ordered_list_text(self):
         CreateTopicForm(self.driver).set_ordered_list_text(pages.locator.ORDERED_LIST_MAIN_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
-        result_text = TopicPage(self.driver).topic.get_text(pages.locator.ORDERED_LIST_TAG)
-        self.assertEqual(pages.constants.MAIN_TEXT, result_text)
+        result_text = TopicPage(self.driver).topic.is_ordered_list_text()
+        self.assertTrue(result_text)
 
 
     def test_ordered_short_text(self):
         CreateTopicForm(self.driver).set_ordered_list_text(pages.locator.ORDERED_LIST_SHORT_TEXT)
         self.create_topic_page.create_topic(self.create_topic_page)
         BlogPage(self.driver).topic.open_blog()
-        result_text = BlogPage(self.driver).topic.get_text(pages.locator.ORDERED_LIST_TAG)
-        self.assertEqual(pages.constants.SHORT_TEXT, result_text)
+        result_text = BlogPage(self.driver).topic.is_ordered_list_text()
+        self.assertTrue(result_text)
 
 
     def test_link_text(self):

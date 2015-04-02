@@ -3,13 +3,11 @@ import os
 from selenium.common.exceptions import NoSuchElementException
 
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
 import constants
 import locator
-import time
+
 
 __author__ = 'Mily-V'
 
@@ -78,7 +76,22 @@ class TopicRead(Component):
     def is_image_in_text(self):
         try:
             return self.driver.find_element_by_xpath(locator.IMAGE_TAG).\
-                get_attribute('href')
+                is_enabled()
+        except NoSuchElementException:
+            return False
+
+
+    def is_ordered_list_text(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.ORDERED_LIST_TAG).\
+                is_enabled()
+        except NoSuchElementException:
+            return False
+
+    def is_unordered_list_text(self):
+        try:
+            return self.driver.find_element_by_xpath(locator.UNORDERED_LIST_TAG).\
+                is_enabled()
         except NoSuchElementException:
             return False
 
