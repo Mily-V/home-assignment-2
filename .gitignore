@@ -54,3 +54,4 @@ docs/_build/
 target/
 selenium-server-standalone-2.45.0.jar
 .idea/
+*.pyc
